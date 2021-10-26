@@ -10,11 +10,50 @@
         <link rel="stylesheet" href="{% static 'photos/styles/index.css' %}">
     </head>
     <body>
-        <h1>Hello World</h1>
-        <p>Hello World</p>
+        <header>
+            <nav>
+                <a href="/photos">Photos</a>
+                <a href="/faces">Faces</a>
+                <a href="/customization">Customization</a>
+                <a href="/login">Login</a>
+                <a href="/signup">Sign up</a>
+            </nav>
+        </header>
 
-    {% if photo_display %}
-        <h2>{{ photos.0.name }}</h2>
-    {% endif %}
+        <main>
+            <section>
+                <h2>All Photos<h2>
+                <ul>
+                    {% if photos|length > 0 %}
+                        {% for photo in photos %}
+                            <li class="photo-item">
+                                <article>
+                                    <div class="photo-image">
+                                        <img src="" alt="">
+                                    </div>
+                                    <div class="photo-description">
+                                        <p>{{ photo.description }}</p>
+                                    </div>
+                                    <div class="photo-face">
+                                        <p>Faces found: {{ photo.faces_found }}</p>
+                                    </div>
+                                </article>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <h2>No photo found. Upload new photos</h2>
+                    {% endif %}
+                <ul>
+            </section>
+
+            {% if photo_display %}
+                {% for photo in photos %}
+                    <h2>{{ photo.name }}</h2>
+                {% endfor %}
+            {% else %}
+                <h2>No photo found. Upload new photos</h2>
+            {% endif %}
+        </main>
+
     </body>
 </html>
