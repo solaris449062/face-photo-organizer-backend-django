@@ -21,5 +21,16 @@ def index(request):
         'photos': photos
     })
 
+def faces(request):
+    faces = [
+        {
+            'identity': 'person01',
+            'description': 'this is a face of person01'
+        }
+    ]
+    return render(request, 'photos/faces.html', {
+        'faces': faces
+    })
+
 
 # Create your views here.

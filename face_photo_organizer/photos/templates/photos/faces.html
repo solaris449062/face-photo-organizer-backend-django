@@ -24,21 +24,21 @@
             <section>
                 <h2>All Photos<h2>
                 <ul>
-                    {% if photos|length > 0 %}
-                        {% for photo in photos %}
+                    {% if faces|length > 0 %}
+                        {% for face in faces %}
                             <li class="photo-item">
                                 <article>
-                                    <div class="photo-image">
+                                    <div class="face-image">
                                         <img src="" alt="">
                                     </div>
-                                    <div class="photo-description">
-                                        <p>{{ photo.description }}</p>
+                                    <div class="face-identity">
+                                        <p>{{ face.identity }}</p>
                                     </div>
-                                    <div class="photo-face">
-                                        <p>Faces found: {{ photo.faces_found }}</p>
+                                    <div class="face">
+                                        <p>{{ face.description }}</p>
                                     </div>
                                     <div class="photo-actions">
-                                        <a href="" class="btn">Name faces</a>
+                                        <a href="" class="btn">Find photos</a>
                                     </div>
 
                             
