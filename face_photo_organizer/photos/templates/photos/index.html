@@ -29,13 +29,19 @@
                             <li class="photo-item">
                                 <article>
                                     <div class="photo-image">
-                                        <img src="" alt="">
+                                        <img src="{{photo.image.url}}" alt="An image">
+                                    </div>
+                                    <div class="photo-description">
+                                        <p>{{ photo.name }}</p>
                                     </div>
                                     <div class="photo-description">
                                         <p>{{ photo.description }}</p>
                                     </div>
                                     <div class="photo-face">
-                                        <p>Faces found: {{ photo.faces_found }}</p>
+                                        <p>Faces found: {{ photo.faces }}</p>
+                                    </div>
+                                    <div class="photo-face">
+                                        <p>slug: {{ photo.slug }}</p>
                                     </div>
                                     <div class="photo-actions">
                                         <a href="" class="btn">Name faces</a>
@@ -51,13 +57,6 @@
                 <ul>
             </section>
 
-            {% if photo_display %}
-                {% for photo in photos %}
-                    <h2>{{ photo.name }}</h2>
-                {% endfor %}
-            {% else %}
-                <h2>No photo found. Upload new photos</h2>
-            {% endif %}
         </main>
 
     </body>

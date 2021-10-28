@@ -1,23 +1,13 @@
 from django.shortcuts import render
 
+from .models import Photo
+
 # from django.http import HttpResponse
 
 def index(request): 
-    photos = [
-        { 
-            'description': 'picture01',
-            'faces_found': 2, 
-            'slug': 'picture-01'
-        },
-        { 
-            'description': 'picture02', 
-            'faces_found': 1, 
-            'slug': 'picture-02'
-        }
-    ]
+    photos = Photo.objects.all()
     
     return render(request, 'photos/index.html', {
-        'photo_display': True,
         'photos': photos
     })
 
@@ -28,6 +18,13 @@ def faces(request):
             'description': 'this is a face of person01'
         }
     ]
+    return render(request, 'photos/faces.html', {
+        'faces': faces
+    })
+
+
+def face(request, photo_slug):
+    faces = Photo.objects.get(slug=photo_slug)
     return render(request, 'photos/faces.html', {
         'faces': faces
     })
