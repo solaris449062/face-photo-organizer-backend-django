@@ -2,22 +2,30 @@ from django.shortcuts import render
 from .models import Photo
 from django.views import View
 from django.http import HttpResponseRedirect
+from .forms import PhotoUploadForm
 
 # from django.http import HttpResponse
 
-def save_uploaded_file(file):
-    with open("temp/test.jpg", "wb+") as destination:
-        for chunk in file.chunks():
-            print(1)
-            print(chunk)
+def handle_uploaded_file(f):
+    with open('temp/file.jpg', 'wb+') as destination:
+        for chunk in f.chunks():
             destination.write(chunk)
-class CreatePhotoView(View):
-    def get(self, request):
-        return render(request, "photos/index.html")
+# class CreatePhotoView(View):
+#     def get(self, request):
+#         return render(request, "photos/index.html")
 
-    def post(self, request):
-        save_uploaded_file(request.FILES["image"])
-        return HttpResponseRedirect("/photos/")
+#     def post(self, request):
+#         photo = Photo(image=request.FILES["uploaded_image"]) # needs to match with forms.py
+#         photo.save()
+#         handle_uploaded_file(request.FILES["file"])
+#         return HttpResponseRedirect("/photos/")
+
+def upload_file(request):
+    form = PhotoUploadForm(request.POST, request.FILES)
+    print(request)
+    handle_uploaded_file(request.FILES["file"])
+
+
 
 def index(request): 
     photos = Photo.objects.all()
