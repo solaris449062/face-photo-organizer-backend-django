@@ -21,8 +21,17 @@
         </header>
 
         <main>
+
             <section>
+
                 <h2>All Photos<h2>
+
+                <form action="/photos/" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="image" multiple/>
+                    <button>Upload</button>
+                </form>
+
                 <ul>
                     {% if photos|length > 0 %}
                         {% for photo in photos %}
@@ -56,6 +65,7 @@
                     {% endif %}
                 <ul>
             </section>
+
 
         </main>
 
