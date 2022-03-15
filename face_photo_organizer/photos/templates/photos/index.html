@@ -1,4 +1,5 @@
 {% load static %}
+{% static "" as baseUrl %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +45,13 @@
                                     <div class="photo-description">
                                         <p>{{ photo.name }}</p>
                                     </div>
+
+                                    {% for face in faces %}
+                                            <img src="{% static face %}" alt="face">
+                                            {% comment %} <img src="{{ baseUrl }}/photos/files/{{face}}" alt="face">
+                                            <p>{{face}}</p> {% endcomment %}
+                                    {% endfor %}
+                                    
                                     <div class="photo-description">
                                         <p>{{ photo.description }}</p>
                                     </div>
@@ -51,7 +59,7 @@
                                         <p>Faces found: {{ photo.faces }}</p>
                                     </div>
                                     <div class="photo-face">
-                                        <p>slug: {{ photo.slug }}</p>
+                                        <p>url: {{ photo.image.url }}</p>
                                     </div>
                                     <div class="photo-actions">
                                         <a href="" class="btn">Name faces</a>
@@ -72,3 +80,5 @@
 
     </body>
 </html>
+
+
