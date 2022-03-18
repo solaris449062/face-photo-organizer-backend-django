@@ -38,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'photos.apps.PhotosConfig',
-    'rest_framework',
+    'corsheaders', # added for django-cors-header
+    'photos.apps.PhotosConfig', # added for the django app
+    'rest_framework', # added for django-rest-framework
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # added for django-cors-header (needs to be above CommonWare)
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,3 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/files/'
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://localhost:3000.*",
+]
