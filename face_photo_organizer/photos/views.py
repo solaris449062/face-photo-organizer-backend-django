@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+
 from rest_framework.decorators import api_view
-from .imageInfo import imageInfo
 from rest_framework.response import Response
+
+from .imageInfo import imageInfo
+from .models import Photo
+from .serializers import PhotoSerializer
+
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -18,15 +23,14 @@ def getRoutes(request):
     return Response(routes)
 
 @api_view(['GET'])
-def getImageInfo(request):
-    return Response(imageInfo)
+def getImages(request):
+    images = Photo.objects.all()
+    serializer = PhotoSerializer(images, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 def getImage(request, pk):
-	selectedImage = None
-	for image in imageInfo:
-		if image['_id'] == pk:
-			selectedImage = image
-			break
-	return Response(selectedImage)
+    image = Photo.objects.get(_id=pk)
+    serializer = PhotoSerializer(image, many=False)
+    return Response(serializer.data)
