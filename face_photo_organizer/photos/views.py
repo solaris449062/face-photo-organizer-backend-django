@@ -6,21 +6,31 @@ from rest_framework.response import Response
 
 from .imageInfo import imageInfo
 from .models import Photo
-from .serializers import PhotoSerializer
+from .serializers import PhotoSerializer, UserSerializer, UserSerializerWithToken
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        serializer = UserSerializerWithToken(self.user).data
+
+        for key, val in serializer.items():
+            data[key] = val
+
+        return data
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 @api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        '/api/photos/',
-        '/api/photos/create/',
-        '/api/photos/upload/',
-        '/api/photos/<id>/faces/',
-        '/api/photos/delete/<id>/',
-        '/api/photos/<update>/<id>/',
-        '/api/photos/top/',
-    ]
-    return Response(routes)
+def getUserProfile(request):
+    user = request.user
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def getImages(request):
